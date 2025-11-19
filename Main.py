@@ -1,23 +1,31 @@
 Places = []
 People = []
-def decide_something():
-    action = input("What do you want to do?")
-    if action == "ADD_CHAR":
-        People.append(input("Who to add?"))
-        repet()
-    elif action == "ADD_PLACE":
-        Places.append(input("Where to add?"))
+def pick_action():
+    action = input("What do you want to do?").lower()
+    if action == "add":
+        Add_something()
         repet()
     else:
         print("Please try again")
-        decide_something()
+        pick_action()
+
+def Add_something():
+    action = input("What to add?").lower()
+    if action == "place":
+        Places.append(input("Where?"))
+    elif action == "person":
+        People.append(input("Who?"))
+    else:
+        print("Try again")
+        Add_something()
+
 
 def repet():
     print(f"People: {People}, places: {Places}.")
-    if input("Add aonther?(y/n)") == "y":
-        decide_something()
+    if input("Add aonther?(y/n)").lower() == "y":
+        pick_action()
     else:
         print(f"People: {People}, places: {Places}.")
         print("Goodbye.")
 
-decide_something()
+pick_action()
