@@ -41,15 +41,16 @@ def Add():
         Add()
 
 def Remove():
-    lists = [things["people"], things["places"], things["items"]]
-    print(lists)
+    Show_Vars()
     action = input("What to remove?")
-    print(action)
-    for inner in lists:
-        if action in inner:
-            inner.remove(action)
-            repet()
-            return
+    print(f"removing {action}")
+    for key, lst in things.items():
+        if not things[key] == []:
+            for item in lst:
+              if action == item:
+                  lst.remove(item)
+                  repet()
+                  return
     if action == "cansil":
         print("Okay")
         repet()
@@ -87,6 +88,7 @@ def time():
         time()
 
 def Show_Vars():
+    print()
     for key, lst in things.items():
         if not things[key] == []:
             print(f"--- {key} ---")
@@ -96,6 +98,7 @@ def Show_Vars():
         print(f"Year: {Year}")
     if not Season == "":
         print(f"Season: {Season}")
+    print()
 
 def repet():
     Show_Vars()
