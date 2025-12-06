@@ -1,13 +1,20 @@
-Places = []
-People = []
-lists = [People, Places]
+things = {
+    "people": [],
+    "places": [],
+    "items": [],
+    "months": []
+}
+Year = None
+Season = ""
+
 def pick_action():
     action = input("What do you want to do?").lower()
     if action == "add":
         Add()
-        repet()
     elif action == "remove":
         Remove()
+    elif action == "time":
+        time()
     else:
         print("Please try again")
         pick_action()
@@ -15,9 +22,17 @@ def pick_action():
 def Add():
     action = input("What to add?").lower()
     if action == "place":
-        Places.append(input("Where?"))
+        things["places"].append(input("Where?"))
+        repet()
     elif action == "person":
-        People.append(input("Who?"))
+        things["people"].append(input("Who?"))
+        repet()
+    elif action == "item":
+        things["items"].append(input("What?"))
+        repet()
+    elif action == "month":
+        things["months"].append(input("When?"))
+        repet()
     elif action == "cansil":
         print("Okay")
         repet()
@@ -26,7 +41,7 @@ def Add():
         Add()
 
 def Remove():
-    lists = [People, Places]
+    lists = [things["people"], things["places"], things["items"]]
     print(lists)
     action = input("What to remove?")
     print(action)
@@ -34,6 +49,7 @@ def Remove():
         if action in inner:
             inner.remove(action)
             repet()
+            return
     if action == "cansil":
         print("Okay")
         repet()
@@ -41,12 +57,52 @@ def Remove():
         print("Try again")
         Remove()
 
+def time():
+    action = (input("What do you want to do with time?")).lower()
+    if action == "set":
+        action = input("What to set?").lower()
+        if action == "year":
+            action = input("What to set the year to?")
+            try:
+                Year = int(action)
+                repet()
+            except ValueError:
+                print("Invalid year")
+                repet()
+                pass
+        elif action == "season":
+            Season = input("What season?")
+            repet()
+        elif action == "cansil":
+            print("okay.")
+            repet()
+        else:
+            print("try again.")
+            time()
+    elif action == "cansil":
+            print("okay.")
+            repet()
+    else:
+        print("try again.")
+        time()
+
+def Show_Vars():
+    for key, lst in things.items():
+        if not things[key] == []:
+            print(f"--- {key} ---")
+            for item in lst:
+              print(item)
+    if not Year == None:
+        print(f"Year: {Year}")
+    if not Season == "":
+        print(f"Season: {Season}")
+
 def repet():
-    print(f"People: {People}, places: {Places}.")
+    Show_Vars()
     if input("Do something else?(y/n)").lower() == "y":
         pick_action()
     else:
-        print(f"People: {People}, places: {Places}.")
+        Show_Vars()
         print("Goodbye.")
 
 pick_action()
